@@ -1,0 +1,21 @@
+<table class="table table-condensed table-striped">
+  <thead>
+    <tr>
+      <th>Group</th>
+      <th>User</th>
+      <th>Job ID</th>
+      <th>Nodes</th>
+      <th>Procs</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Submit Time</th>
+      <th>Used Walltime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr app-statistitcs-row
+      [statistics]="statistics"
+      *ngFor="let statistics of statisticsArray">
+    </tr>
+</tbody>
+</table>

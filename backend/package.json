@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "clean:deploy": "rm ../0.deploy/node-express/* -rf",
+    "cp:deploy": "cp -rf bin/ models/ routes/ package.json ../0.deploy/node-express/",
+    "sed:mongo": "sed 's;localhost;mongodb://mongo_db;g' -i bin/app.js",
+    "sed:local": "sed 's;mongodb://mongo_db;localhost;g' -i bin/app.js",
+    "deploy": "npm run sed:mongo && npm run clean:deploy && npm run cp:deploy"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.3",
+    "express": "^4.15.3",
+    "http2": "^3.3.6",
+    "jsonwebtoken": "^7.4.1",
+    "mongoose": "^4.11.1",
+    "mongoose-unique-validator": "^1.0.5",
+    "morgan": "^1.8.2",
+    "router": "^1.3.1"
+  }
+}

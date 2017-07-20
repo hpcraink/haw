@@ -1,0 +1,11 @@
+<header class="row spacing">
+  <nav class="col-md-12">
+    <ul class="nav nav-tabs">
+      <li routerLinkActive="active" *ngIf="isLoggedIn()"><a [routerLink]="['stats-details']">All</a></li>
+      <li></li>
+    </ul>
+  </nav>
+</header>
+<div class="row spacing">
+  <router-outlet></router-outlet>
+</div>

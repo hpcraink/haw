@@ -1,0 +1,14 @@
+<div class="container">
+  <header class="row">
+    <nav class="col-md8 col-md-offset-2">
+      <ul class="nav nav-pills">
+        <li routerLinkActive="active"><a [routerLink]="['/messages']">Messenger</a></li>
+        <li routerLinkActive="active"><a [routerLink]="['/statistics']">Statistics</a></li>
+        <li routerLinkActive="active"><a [routerLink]="['/auth']">Authentication</a></li>
+      </ul>
+    </nav>
+  </header>
+  <hr>
+  <router-outlet></router-outlet>
+</div>
+<app-error></app-error>
