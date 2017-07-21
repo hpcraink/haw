@@ -9,15 +9,15 @@
     "build:aot": "npm run clean && ngc -p tsconfig.aot.json",
     "prod:rollup": "npm run build:aot && rollup -c",
     "prod": "npm run build:aot && webpack --config webpack.config.prod.js",
-    "local": "npm run sed:local && npm run prod",
     "source-map": "source-map-explorer public/js/app/app.bundle.js",
     "watch:rollup": "rollup -c -w",
     "watch:webpack": "npm run clean && webpack --config webpack.config.dev.js --progress --profile --watch",
     "sed:mongo": "sed 's;https://localhost:3000/;https://localhost/;g' -i src/*/*.service.ts",
     "sed:local": "sed 's;https://localhost/;https://localhost:3000/;g' -i src/*/*.service.ts",
-    "deploy:clean": "rm -rf ../0.deploy/nginx/frontend/*",
-    "deploy:copy": "cp -rf public/* ../0.deploy/nginx/frontend/",
-    "deploy": "npm run sed:mongo && npm run prod && npm run deploy:clean && npm run deploy:copy"
+    "deploy:clean": "rm -rf ../deploy/nginx/frontend/*",
+    "deploy:copy": "cp -rf public/* ../deploy/nginx/frontend/",
+    "deploy": "npm run sed:mongo && npm run prod && npm run deploy:clean && npm run deploy:copy",
+    "local": "npm run sed:local && npm run prod"
   },
   "dependencies": {
     "@angular/animations": "^4.2.3",

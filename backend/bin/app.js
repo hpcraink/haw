@@ -22,7 +22,7 @@ const app = express();
 app.use(cors());
 
 // connect to mongodb through mongoose
-mongoose.connect('mongodb://mongo_db:27017/bwUniCluster');
+mongoose.connect('localhost:27017/bwUniCluster');
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());

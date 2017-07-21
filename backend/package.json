@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "npm run sed:local && node ./bin/www",
     "clean:deploy": "rm ../0.deploy/node-express/* -rf",
-    "cp:deploy": "cp -rf bin/ models/ routes/ package.json ../0.deploy/node-express/",
+    "cp:deploy": "cp -rf bin/ models/ routes/ package.json ../deploy/node-express/",
     "sed:mongo": "sed 's;localhost;mongodb://mongo_db;g' -i bin/app.js",
     "sed:local": "sed 's;mongodb://mongo_db;localhost;g' -i bin/app.js",
     "deploy": "npm run sed:mongo && npm run clean:deploy && npm run cp:deploy"
