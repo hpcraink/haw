@@ -10,7 +10,7 @@ import { ErrorService } from '../errors/error.service';
 @Injectable()
 export class StatisticsService {
   private statistics: Statistics[] = [];
-  private host: string = 'https://localhost:3000/statistic';
+  private host: string = 'https://backend:3000/statistic';
 
   constructor(private http:Http, private errorService: ErrorService) {}
 

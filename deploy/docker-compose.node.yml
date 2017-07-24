@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  frontend:
+    image: asaramet/npm-run
+    ports:
+      - 443:8000
+    volumes:
+      - ./node-test:/usr/src/app
+      - ./nginx/ssl:/usr/src/app/ssl
+      - ./nginx/frontend:/usr/src/app/public
+    #links:
+    depends_on:
+      - backend
+
+  backend:
+    image: asaramet/npm-run
+    ports:
+      - 3000:3000
+    volumes:
+      - ./node-express:/usr/src/app
+      - ./nginx/ssl:/usr/src/app/ssl
+    links:
+      - mongo_db:mongo
+
+  mongo_db:
+    image: mongo:3.4
+    volumes:
+      - ./mongo_db/mongodb:/data/db
+#      - data-db:/data/db
+
+  mongo-express:
+    image: mongo-express:latest
+    ports:
+      - 8081:8081
+    links:
+      - mongo_db:mongo
+
+networks:
+  default:
+    external:
+      name: haw_app
+
+#volumes:
+#  data-db:

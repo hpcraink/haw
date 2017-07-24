@@ -14,8 +14,8 @@ const port = normalizePort(process.env.PORT || '8000');
 
 /** * Create HTTP server. */
 const options = {
-  key: fs.readFileSync('./ssl/haw-app.key'),
-  cert: fs.readFileSync('./ssl/haw-app.crt')
+  key: fs.readFileSync('./ssl/private/haw-app.key'),
+  cert: fs.readFileSync('./ssl/certs/haw-app.crt')
 }
 const server = http2.createServer(options, app).listen(port, (err) => {
   if (err) {

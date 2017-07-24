@@ -242,6 +242,13 @@ function docker_up() {
   echo "done!"
 }
 
+function docker_test_up() {
+  echo "Start application locally with node as frontend..."
+  docker network create --subnet 172.18.0.0/16 haw_app
+  docker-compose -f docker-compose.node.yml up
+  echo "done!"
+}
+
 function docker_down() {
   echo "Stop application locally..."
   docker-compose down
@@ -310,6 +317,7 @@ function help_menu() {
     -w|--deploy-app           Deploy application to ${SERVER_IP}
     -t|--stop-app             Stop application on ${SERVER_IP}
     -U|--compose-up           Start application locally
+    -T|--compose-test-up      Start application locally with node.js as frontend
     -D|--compose-down         Stop application locally
     -M|--manually-up          Start application manually
     -X|--manually-down        Stop application started manually
@@ -424,6 +432,10 @@ case "${1}" in
   ;;
   -U|--compose-up)
   docker_up ${2:-${SERVER_IP}}
+  shift
+  ;;
+  -T|--compose-test-up)
+  docker_test_up ${2:-${SERVER_IP}}
   shift
   ;;
   -D|--compose-down)

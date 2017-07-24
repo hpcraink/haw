@@ -1,10 +1,14 @@
 */node_modules
+*/*/node_modules
 */package-lock.json
+*/*/package-lock.json
 */npm-debug.log
 deploy/node-express
 deploy/nginx/frontend
 deploy/nginx/ssl
 deploy/mongo_db
+deploy/node-test/ssl
+deploy/node-test/public
 frontend/public/aot
 frontend/public/js
 frontend/src/*.js
