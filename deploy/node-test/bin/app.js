@@ -18,7 +18,6 @@ app.use(express.static('./public'));
 
 // catch 404 and forward to error handler (handled by angular)
 app.use(function(req, res, next) {
-  //res.render('index');
   fs.createReadStream("./public/index.html").pipe(res);
 });
 

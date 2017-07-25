@@ -15,8 +15,6 @@ services:
 
   backend:
     image: asaramet/npm-run
-    ports:
-      - 3000:3000
     volumes:
       - ./node-express:/usr/src/app
       - ./nginx/ssl:/usr/src/app/ssl
