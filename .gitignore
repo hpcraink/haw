@@ -15,4 +15,4 @@ frontend/src/*.js
 frontend/src/*/*.js
 frontrnd/src/*/*/*.js
 backend/ssl
-sql/haw_schema_test.sql
+sql/*.sql
