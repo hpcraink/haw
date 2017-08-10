@@ -11,7 +11,7 @@ import { ErrorService } from '../errors/error.service';
 export class MessageService {
   private messages: Message[] = [];
   messageIsEdit = new EventEmitter<Message>();
-  private host: string = "https://backend:3000/message";
+  private host: string = "http://localhost:3000/message";
 
   constructor(private http: Http, private errorService: ErrorService) {}
 

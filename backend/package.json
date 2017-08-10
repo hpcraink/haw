@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "test": "jasmine-node ./tests",
+    "start": "nodemon ./bin/www",
+    "test": "jasmine",
     "clean:deploy": "rm ../deploy/node-express/* -rf",
     "cp:deploy": "cp -rf bin/ models/ routes/ package.json ../deploy/node-express/",
     "sed:mongo": "sed 's;mongodb://localhost;mongodb://mongo_db;g' -i bin/app.js",
@@ -25,6 +25,7 @@
     "router": "^1.3.1"
   },
   "devDependencies": {
-    "jasmine-node": "^1.14.5"
+    "jasmine": "^2.7.0",
+    "supertest": "^3.0.0"
   }
 }

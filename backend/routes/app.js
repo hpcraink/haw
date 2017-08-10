@@ -5,7 +5,7 @@ const router = new Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
     //fs.createReadStream("./views/index.html").pipe(res);
-    console.log("acessed '/'");
+    res.send('Background server is up!')
 });
 
 module.exports = router;

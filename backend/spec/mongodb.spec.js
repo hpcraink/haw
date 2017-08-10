@@ -1,9 +1,9 @@
-describe("MongoDB", function() {
-  it("is there a server running", function(next) {
+describe("MongoDB tests", function() {
+  it("is there a server running", function(done) {
     const MongoClient = require('mongodb').MongoClient;
     MongoClient.connect('mongodb://127.0.0.1:27017', function(err, db) {
       expect(err).toBe(null);
-      next();
-    })
-  })
-})
+      done();
+    });
+  });
+});

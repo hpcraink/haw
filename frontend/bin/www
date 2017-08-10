@@ -1,30 +1,18 @@
 #!/usr/bin/env node
+'use strict';
 
-/**
- * Module dependencies.
- */
-
-var app = require('./app');
-var debug = require('debug')('angular4-nodejs:server');
-//var http = require('http');
-const http2 = require('http2');
+/** Module dependencies. */
+const app = require('./app');
+const http = require('http');
 const fs = require('fs');
 
-const port = normalizePort(process.env.PORT || '8000');
-
 /** * Create HTTP server. */
-const options = {
-  key: fs.readFileSync('./ssl/haw-app.key'),
-  cert: fs.readFileSync('./ssl/haw-app.crt')
-}
-const server = http2.createServer(options, app).listen(port, (err) => {
-  if (err) {
-    onError(err);
-  }
-  console.log(`Listen on port: ${port}!`);
-});
+const port = normalizePort(process.env.PORT || '8000');
+app.set('port', port);
 
-/** * Listen on provided port, on all network interfaces. */
+const server = http.createServer(app);
+
+server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -70,5 +58,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
 }
