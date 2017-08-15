@@ -16,4 +16,4 @@ frontend/src/*/*.js
 frontrnd/src/*/*/*.js
 backend/ssl
 sql/*.sql
-sql/*.mwb
+sql/*.mwb*

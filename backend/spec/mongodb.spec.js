@@ -10,9 +10,15 @@ describe("MongoDB tests if", function() {
 
   // a test user Object
   const user = {
-    firstName: "Test",
-    lastName: "Test User",
-    email: 'test@test.info',
+    country: "DE",
+    address: "Schillerstr. 102",
+    town: "Esslingen",
+    postcode: "73730",
+    firstName: "Arnold",
+    lastName: "Oberhausen",
+    gender: "Herr",
+    email: "arobit00@hs-esslingen.de",
+    uni: "Hocschule Esslingen"
   };
 
   beforeAll((done) => {
@@ -49,10 +55,10 @@ describe("MongoDB tests if", function() {
 
   it("user is succesifully inserted", (done) => {
     MongoClient.connect(db_uri, function(err, db) {
-      db.collection('users').findOne({lastName: 'Test User'}, (err, result) => {
+      db.collection('users').findOne({lastName: 'Oberhausen'}, (err, result) => {
         expect(err).toBeNull();
-        expect(result.firstName).toBe("Test");
-        expect(result.email).toBe('test@test.info');
+        expect(result.firstName).toBe("Arnold");
+        expect(result.email).toBe('arobit00@hs-esslingen.de');
         db.close();
         done();
       })

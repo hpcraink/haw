@@ -1,16 +1,17 @@
 var bcrypt = require('bcryptjs'); // Lib to help you hash passwords
 var jwt = require('jsonwebtoken'); // an implementation of JSON Web Tokens
 
-const User = require('../models/user');
+const User = require('../models.org/user');
 
 const Router = require('router');
 const router = new Router();
 
+const salt = bcrypt.genSaltSync(10); // generates salt for bcrypt hash password, 2^10 circles of iterration
 router.post('/', function(req, res, next) {
   var user = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    password: bcrypt.hashSync(req.body.password, 10),
+    password: bcrypt.hashSync(req.body.password, salt),
     email: req.body.email
   });
   user.save(function(err, result) {

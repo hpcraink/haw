@@ -19,7 +19,7 @@ describe("GET '/'", () => {
 
 describe("REST /user'", () => {
   // create a test user Object
-  const User = require('../models/user');
+  const User = require('../models.org/user');
   const user = new User({
     firstName: "Test REST",
     lastName: "Test User REST",

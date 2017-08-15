@@ -1,7 +1,7 @@
 //var express = require('express');
 //var router = express.Router();
 
-const Statistics = require('../models/statistics');
+const Statistics = require('../models.org/statistics');
 
 const Router = require('router');
 const router = new Router();
