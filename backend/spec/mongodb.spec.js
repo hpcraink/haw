@@ -25,7 +25,7 @@ const db_uri = "mongodb://localhost:27017/bwUniCluster"
 const salt = bcrypt.genSaltSync(10); // generates salt for bcrypt hash password, 2^10 circles of iterration
 
 // TESTS
-describe("MongoDB tests if", function() {
+xdescribe("MongoDB tests if", function() {
 
   // a test user Object
   const user = {

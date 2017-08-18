@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 const schema = new Schema({
   name: {type: String},
   abbreviation: {type: String},
-  isHAW: {type: Boolean},
-  addressID: {type: Schema.Types.ObjectId, ref."Address"}
+  isHAW: {type: Boolean}
 });
 
 module.exports = mongoose.model("University", schema);
