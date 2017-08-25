@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
+    "mocha": "mocha",
     "test": "jasmine",
     "clean:deploy": "rm ../deploy/node-express/* -rf",
     "cp:deploy": "cp -rf bin/ models/ routes/ package.json ../deploy/node-express/",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "jasmine": "^2.7.0",
+    "mocha": "^3.5.0",
     "supertest": "^3.0.0"
   }
 }

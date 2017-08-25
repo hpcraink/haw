@@ -4,18 +4,9 @@ const request = require('supertest');
 const bcrypt = require('bcryptjs');
 
 const MongoClient = require('mongodb').MongoClient;
-const mongodb_uri = "mongodb://localhost:27017/bwUniCluster"
 
 const app = require('../app/app');
-
-/*
-// import mongoose models
-const Person = require('../models/person');
-const Login = require('../models/login');
-const Address = require('../models/address');
-const Country = require('../models/country');
-const University = require('../models/university');
-*/
+const mongodb_uri = "mongodb://localhost:27017/bwUniCluster"
 
 //generate salt for bcrypt hash password, doing 2^10 cycles of iterration
 const salt = bcrypt.genSaltSync(10);
@@ -30,7 +21,7 @@ describe("GET '/'", () => {
   })
 });
 
-xdescribe("drop unused collections in a mongo database", () => {
+describe("drop unused collections in a mongo database", () => {
   const collections = ['countries', 'addresses', 'universities', 'logins', 'people'];
   collections.forEach( item => {
     beforeAll((done) => {
@@ -54,8 +45,7 @@ xdescribe("drop unused collections in a mongo database", () => {
   })
 });
 
-
-describe("REST /user'", () => {
+xdescribe("REST /user'", () => {
   // create test objects
   const user1 = {
     country: "Germany",
@@ -83,45 +73,64 @@ describe("REST /user'", () => {
     password: bcrypt.hashSync("test12345", salt)
   };
 
-  beforeAll((done) => { //afterAll is executed async with it and therefore drops error
-    // delete test objects from database
-    MongoClient.connect(mongodb_uri, (err, db) => {
-      // remove login and user credentials from db
-      db.collection('people').findOne({eMailaddress: user1.email}, (err, found_person) => {
+afterAll((done) => { // afterAll doesn't work with jamine 2.x!
+  // delete test objects from database
+  // Set up the connection to the local db
+  MongoClient.connect(mongodb_uri, (err, db) => {
+    // find and delete login doc from logins collection
+    db.collection('people').findOne({eMailaddress: user1.email}, (err, result) => {
+      console.log(result);
+      db.collection('logins').deleteOne({personID: result._id}, (err, res) => {
         if (err) throw err;
-
-        // remove login doc
-        db.collection('logins').deleteOne({personID: found_person._id}, (error, result) => {
-          if (error) throw error;
-          // remove user from people collection
-          db.collection('people').deleteOne({_id: found_person._id}, (error, result) => {
-            if (error) throw error;
-          });
-        });
-
-        // remove address doc from db
-        db.collection('addresses').deleteOne({streetAndNr: user1.address}, (error, result) => {
-          if (error) throw error;
-        });
-        done();
       });
     });
+    // delete person from people collection
+    db.collection('people').deleteOne({eMailaddress: user1.email}, (err, res) => {
+      if (err) throw err;
+    });
+    // From 'addresses' collection remove 'address' doc
+    db.collection('addresses').deleteOne({streetAndNr: user1.address}, (err, res) => {
+      if (err) throw err;
+    });
+
+    db.close();
+    done();
   });
+});
 
   // Tests
+  xit("doesn't create an unvalidated user", (done) => {
+    request(app).post('/user')
+      //.send(unvalid)
+      .send({firstName: "Unvalid", lastName: "Test User REST"})
+      .expect(500) // will display the error message on testing, should be ignored as test is success
+      .end(error => error ? done.fail() : done());
+  });
+
   it("creates a new user", (done) => {
     request(app).post('/user')
       .send(user1)
       .expect(201)
-      .end((error, res) => error ? done(error) : done());
+      .end(error => error ? done.fail(error) : done());
   });
 
-  it("doesn't create the second identical user", (done) => {
+  xit("doesn't create the same user twice", (done) => {
     request(app).post('/user')
       .send(user1)
       .expect(409)
-      .end((error, res) => error ? done(error) : done());
+      .end(done());
+      //.end(error => error ? done.fail(error) : done());
   });
 
-
+  xit("creates a new doc in 'persons' collection in mongodb", done => {
+    MongoClient.connect(mongodb_uri, function(err, db) {
+      db.collection('persons').findOne({lastName: 'Oberhausen'}, (err, result) => {
+        expect(err).toBeNull();
+        expect(result.firstName).toBe("Arnold");
+        expect(result.email).toBe('arobit00@hs-esslingen.de');
+        db.close();
+        done();
+      });
+    });
+  });
 });

@@ -30,31 +30,6 @@ describe("GET '/'", () => {
   })
 });
 
-xdescribe("drop unused collections in a mongo database", () => {
-  const collections = ['countries', 'addresses', 'universities', 'logins', 'people'];
-  collections.forEach( item => {
-    beforeAll((done) => {
-      // here drop the collection
-      MongoClient.connect(mongodb_uri, (err, db) => {
-        db.collection(item).drop((err, reply) => {
-          if (err) {
-            db.close();
-            done.fail(err);
-          }
-          db.close();
-          done();
-        });
-      });
-    });
-  });
-
-  it("a dummy test, to drop the collections", (done) => {
-    expect(true).toBe(true);
-    done();
-  })
-});
-
-
 describe("REST /user'", () => {
   // create test objects
   const user1 = {
@@ -83,16 +58,17 @@ describe("REST /user'", () => {
     password: bcrypt.hashSync("test12345", salt)
   };
 
-  beforeAll((done) => { //afterAll is executed async with it and therefore drops error
+  after((done) => { // doesn't properly work, as with jasmine. is executed before it async
     // delete test objects from database
     MongoClient.connect(mongodb_uri, (err, db) => {
       // remove login and user credentials from db
       db.collection('people').findOne({eMailaddress: user1.email}, (err, found_person) => {
         if (err) throw err;
-
+        console.log("FP ==>", found_person);
         // remove login doc
         db.collection('logins').deleteOne({personID: found_person._id}, (error, result) => {
           if (error) throw error;
+          console.log("FP Log ==>", found_person);
           // remove user from people collection
           db.collection('people').deleteOne({_id: found_person._id}, (error, result) => {
             if (error) throw error;
@@ -115,13 +91,5 @@ describe("REST /user'", () => {
       .expect(201)
       .end((error, res) => error ? done(error) : done());
   });
-
-  it("doesn't create the second identical user", (done) => {
-    request(app).post('/user')
-      .send(user1)
-      .expect(409)
-      .end((error, res) => error ? done(error) : done());
-  });
-
 
 });
