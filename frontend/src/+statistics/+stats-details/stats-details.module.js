@@ -11,23 +11,23 @@ import { routes } from './stats-details.routes';
 import { StatisticsListComponent } from './statistics-list.component';
 import { StatisticsRowComponent } from './statistics-row.component';
 import { StatsDetailsComponent } from './stats-details.component';
-var StatsDetailsModule = (function () {
+var StatsDetailsModule = /** @class */ (function () {
     function StatsDetailsModule() {
     }
+    StatsDetailsModule.routes = routes;
+    StatsDetailsModule = __decorate([
+        NgModule({
+            declarations: [
+                StatsDetailsComponent,
+                StatisticsListComponent,
+                StatisticsRowComponent
+            ],
+            imports: [
+                CommonModule,
+                RouterModule.forChild(routes)
+            ]
+        })
+    ], StatsDetailsModule);
     return StatsDetailsModule;
 }());
-StatsDetailsModule.routes = routes;
-StatsDetailsModule = __decorate([
-    NgModule({
-        declarations: [
-            StatsDetailsComponent,
-            StatisticsListComponent,
-            StatisticsRowComponent
-        ],
-        imports: [
-            CommonModule,
-            RouterModule.forChild(routes)
-        ]
-    })
-], StatsDetailsModule);
 export { StatsDetailsModule };

@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { User } from '../user.model';
-var SignupComponent = (function () {
+var SignupComponent = /** @class */ (function () {
     function SignupComponent(authService, fb) {
         this.authService = authService;
         this.fb = fb;
@@ -51,14 +51,14 @@ var SignupComponent = (function () {
         };
     };
     ;
+    SignupComponent = __decorate([
+        Component({
+            selector: 'app-signup',
+            templateUrl: './signup.component.html'
+        }),
+        __metadata("design:paramtypes", [AuthService, FormBuilder])
+    ], SignupComponent);
     return SignupComponent;
 }());
-SignupComponent = __decorate([
-    Component({
-        selector: 'app-signup',
-        templateUrl: './signup.component.html'
-    }),
-    __metadata("design:paramtypes", [AuthService, FormBuilder])
-], SignupComponent);
 export { SignupComponent };
 ;

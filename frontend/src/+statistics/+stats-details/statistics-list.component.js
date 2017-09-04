@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { StatisticsService } from '../statistics.service';
-var StatisticsListComponent = (function () {
+var StatisticsListComponent = /** @class */ (function () {
     function StatisticsListComponent(statisticsService) {
         this.statisticsService = statisticsService;
         this.statisticsArray = [];
@@ -22,13 +22,13 @@ var StatisticsListComponent = (function () {
             _this.statisticsArray = statistics;
         });
     };
+    StatisticsListComponent = __decorate([
+        Component({
+            selector: 'app-statistitcs-list',
+            templateUrl: './statistics-list.component.html'
+        }),
+        __metadata("design:paramtypes", [StatisticsService])
+    ], StatisticsListComponent);
     return StatisticsListComponent;
 }());
-StatisticsListComponent = __decorate([
-    Component({
-        selector: 'app-statistitcs-list',
-        templateUrl: './statistics-list.component.html'
-    }),
-    __metadata("design:paramtypes", [StatisticsService])
-], StatisticsListComponent);
 export { StatisticsListComponent };
