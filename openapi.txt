@@ -1,0 +1,127 @@
+openapi: "3.0.0"
+
+
+info:
+  title: "HAW application API"
+  description: "This is the REST-API to access the HAW server."
+  termsOfService: "https://github.com/asaramet/haw"
+  contact:
+    name: "API Support"
+    url: https://github.com/asaramet/haw
+    email: "alexandru.saramet@hs-esslingen.de"
+  license: 
+    name: "BSD 3-clause"
+    url: "https://opensource.org/licenses/BSD-3-Clause"
+  version: "1.0.0"
+  
+components:
+  schemas:
+    Response:
+      type: object
+      discriminator:
+        propertyName: code
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+          minimum: 100
+          maximum: 600
+      required:
+      - message
+      - code
+    SuccessResponse:
+      allOf:
+      - $ref: '#components/schemas/Response'
+      - type: object
+        properties:
+          code:
+            type: integer
+            default: 200
+            
+paths:
+  /haw/auth:
+    post:
+      operationId: auth
+      summary: Authorize user
+      parameters:
+      - name: email
+        in: query
+        description: The users email adress to log in.
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        description: The users password to log in.
+        required: true
+        schema:
+          type: string
+      responses:
+        204:
+          description: "Authentication success"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          
+        300:
+          description: "Authentification failed"
+          
+
+  /haw/user:
+    get:
+    post:    # When admin: New USer
+    put:     # Change existing user
+
+  /haw/user/ID:
+    get: # Get specific USer ID, when UniRespons, or ProjectResp or Admin
+    put: # When Admin or UniResponse, change an existing user
+
+ /haw/user/getAll:
+    get: # When Admin: Get all users
+    
+ /haw/user/findByUniversity/ID:
+    get: # 
+
+
+
+ /haw/university/ID:
+    get: # Get a speicifc University
+    put: 
+
+ /haw/university/ID/users:
+    get: # Get all users of a specific University
+
+
+ /haw/project/ID/users:
+    get: # Get all users of a specific project
+
+
+ /haw/resource/ID:
+    get: # Get resource information of resource with ID and it's recursive sub-resources (number of resources, made up of)
+
+ /haw/resource/ID/resourcetimespan:
+    get: # Get all the timespan information for a resource
+    post: # INsert a new timespan information
+
+ /haw/timespan/ID:
+    put: # Update a timespan information
+ 
+
+ /haw/resource/ID/accounting:
+    get: All Accounting information for the resource (over all timespan)
+         Optional in body:
+          {
+            project: specific project ID
+            university: for a specific university
+            user: specific user id
+            dateStart: from date including starting date
+            dateEnd: up until date including ending date
+          }
+
+
+ 
+
+
+

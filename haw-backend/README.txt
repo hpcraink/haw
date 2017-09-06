@@ -16,3 +16,20 @@ for the Jazzclub Armer Konrad:
 
 This code is delopped and released under the BSD 3-clause
 license. Please pass on the License.
+
+
+This software requires:
+ - Java compiler and SDK (>1.7)
+ - JavaEE SDK
+   Parts require Glassfish/Payara application server
+ - Maven for building
+
+ - The Glassfish/Payara server requires the MySQL connector/J
+
+
+Installation is typically:
+   mvn generate-resources    # executed once
+   mvn clean                 # Deletes artefacts, namely target/ directory
+   mvn package
+   mvn glassfish:deploy      # To deploy the Server component on the Application server. 
+
