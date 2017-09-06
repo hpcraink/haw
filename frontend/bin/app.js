@@ -2,7 +2,7 @@
 
 const express = require('express');
 const favicon = require('serve-favicon');
-const logger = require('morgan');
+//const logger = require('morgan');
 const fs = require('fs');
 
 // Make HTTP2 work with Express (this must be before any other middleware)
@@ -16,7 +16,7 @@ const app = express();
 app.use(favicon('./public/favicon.ico'));
 
 // morgan logger
-app.use(logger('dev'));
+//app.use(logger('dev'));
 
 // set static folder pointing to './public'
 app.use(express.static('./public'));

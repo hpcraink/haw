@@ -5,18 +5,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Component } from '@angular/core';
-var StatsDetailsComponent = (function () {
+var StatsDetailsComponent = /** @class */ (function () {
     function StatsDetailsComponent() {
     }
     StatsDetailsComponent.prototype.ngOnInit = function () {
         console.log("Hello from StatsDetailsComponent");
     };
+    StatsDetailsComponent = __decorate([
+        Component({
+            selector: 'app-stats-details',
+            templateUrl: './stats-details.component.html'
+        })
+    ], StatsDetailsComponent);
     return StatsDetailsComponent;
 }());
-StatsDetailsComponent = __decorate([
-    Component({
-        selector: 'app-stats-details',
-        templateUrl: './stats-details.component.html'
-    })
-], StatsDetailsComponent);
 export { StatsDetailsComponent };

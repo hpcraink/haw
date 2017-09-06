@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-var LogoutComponent = (function () {
+var LogoutComponent = /** @class */ (function () {
     function LogoutComponent(authService, router) {
         this.authService = authService;
         this.router = router;
@@ -20,13 +20,13 @@ var LogoutComponent = (function () {
         this.authService.logout();
         this.router.navigate(['/auth', 'signin']);
     };
+    LogoutComponent = __decorate([
+        Component({
+            selector: 'app-logout',
+            templateUrl: './logout.component.html'
+        }),
+        __metadata("design:paramtypes", [AuthService, Router])
+    ], LogoutComponent);
     return LogoutComponent;
 }());
-LogoutComponent = __decorate([
-    Component({
-        selector: 'app-logout',
-        templateUrl: './logout.component.html'
-    }),
-    __metadata("design:paramtypes", [AuthService, Router])
-], LogoutComponent);
 export { LogoutComponent };

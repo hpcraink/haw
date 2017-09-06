@@ -10,22 +10,22 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { routes } from './signup.routes';
 import { SignupComponent } from './signup.component';
-var SignupModule = (function () {
+var SignupModule = /** @class */ (function () {
     function SignupModule() {
     }
+    SignupModule.routes = routes;
+    SignupModule = __decorate([
+        NgModule({
+            declarations: [
+                SignupComponent
+            ],
+            imports: [
+                CommonModule,
+                ReactiveFormsModule,
+                RouterModule.forChild(routes)
+            ]
+        })
+    ], SignupModule);
     return SignupModule;
 }());
-SignupModule.routes = routes;
-SignupModule = __decorate([
-    NgModule({
-        declarations: [
-            SignupComponent
-        ],
-        imports: [
-            CommonModule,
-            ReactiveFormsModule,
-            RouterModule.forChild(routes)
-        ]
-    })
-], SignupModule);
 export { SignupModule };

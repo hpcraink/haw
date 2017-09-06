@@ -9,21 +9,21 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { routes } from './logout.routes';
 import { LogoutComponent } from './logout.component';
-var LogoutModule = (function () {
+var LogoutModule = /** @class */ (function () {
     function LogoutModule() {
     }
+    LogoutModule.routes = routes;
+    LogoutModule = __decorate([
+        NgModule({
+            declarations: [
+                LogoutComponent
+            ],
+            imports: [
+                CommonModule,
+                RouterModule.forChild(routes)
+            ]
+        })
+    ], LogoutModule);
     return LogoutModule;
 }());
-LogoutModule.routes = routes;
-LogoutModule = __decorate([
-    NgModule({
-        declarations: [
-            LogoutComponent
-        ],
-        imports: [
-            CommonModule,
-            RouterModule.forChild(routes)
-        ]
-    })
-], LogoutModule);
 export { LogoutModule };

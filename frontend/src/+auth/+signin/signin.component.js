@@ -12,7 +12,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../user.model';
 import { AuthService } from "../auth.service";
-var SigninComponent = (function () {
+var SigninComponent = /** @class */ (function () {
     function SigninComponent(authService, router) {
         this.authService = authService;
         this.router = router;
@@ -37,13 +37,13 @@ var SigninComponent = (function () {
             password: new FormControl(null, Validators.required)
         });
     };
+    SigninComponent = __decorate([
+        Component({
+            selector: 'app-signin',
+            templateUrl: './signin.component.html'
+        }),
+        __metadata("design:paramtypes", [AuthService, Router])
+    ], SigninComponent);
     return SigninComponent;
 }());
-SigninComponent = __decorate([
-    Component({
-        selector: 'app-signin',
-        templateUrl: './signin.component.html'
-    }),
-    __metadata("design:paramtypes", [AuthService, Router])
-], SigninComponent);
 export { SigninComponent };

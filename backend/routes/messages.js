@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const User = require('../models/user');
-const Message = require('../models/message');
+const User = require('../models.org/user');
+const Message = require('../models.org/message');
 
 const Router = require('router');
 const router = new Router();

@@ -9,19 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, Input } from "@angular/core";
 import { Statistics } from "../statistics.model";
-var StatisticsRowComponent = (function () {
+var StatisticsRowComponent = /** @class */ (function () {
     function StatisticsRowComponent() {
     }
+    __decorate([
+        Input(),
+        __metadata("design:type", Statistics)
+    ], StatisticsRowComponent.prototype, "statistics", void 0);
+    StatisticsRowComponent = __decorate([
+        Component({
+            selector: '[app-statistitcs-row]',
+            templateUrl: './statistics-row.component.html'
+        })
+    ], StatisticsRowComponent);
     return StatisticsRowComponent;
 }());
-__decorate([
-    Input(),
-    __metadata("design:type", Statistics)
-], StatisticsRowComponent.prototype, "statistics", void 0);
-StatisticsRowComponent = __decorate([
-    Component({
-        selector: '[app-statistitcs-row]',
-        templateUrl: './statistics-row.component.html'
-    })
-], StatisticsRowComponent);
 export { StatisticsRowComponent };
