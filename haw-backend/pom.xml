@@ -1,0 +1,315 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.haw</groupId>
+    <artifactId>haw-backend</artifactId>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>haw-backend</name>
+    <url>https://github.com/asaramet/haw</url>
+    <description>HAW Accounting Backend</description>
+
+    <scm>
+        <url>https://github.com/asaramet/haw</url>
+        <connection>scm:git:https://github.com/asaramet/haw/backend</connection>
+        <developerConnection>scm:svn:https://github.com/asaramet/haw/backend</developerConnection>
+    </scm>
+    
+    <licenses>
+        <license>
+            <name>BSD 3-clause license</name>
+            <url>https://www.gnu.org/licenses/license-list.html#FreeBSD</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+     
+    <developers>
+        <developer>
+            <name>Rainer Keller</name>
+            <email>rainer.keller@hft-stuttgart.de</email>
+        </developer>
+        <developer>
+            <name>Alexandru Saramet</name>
+            <email>alexandru.saramet@hs-esslingen.de</email>
+        </developer>
+    </developers>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java-version>1.8</java-version>
+        <m2eclipse.wtp.contextRoot>/haw</m2eclipse.wtp.contextRoot>
+        <!-- XXX -->
+        <property name="openjpa.ConnectionUserName" value="${db.username}"/>
+        <property name="openjpa.ConnectionPassword" value="${db.password}"/>
+        <property name="openjpa.ConnectionURL" value="${db.url}"/>  
+        <property name="openjpa.ConnectionDriverName"  value="${db.driver.class}"/>  
+    </properties>
+    
+    <profiles>
+        <profile>
+            <id>glassfish-web</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>server</name>
+                    <value>glassfish-web</value>
+                </property>
+            </activation>
+            <properties>
+                <glassfish.version>4.1.2</glassfish.version>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.glassfish.maven.plugin</groupId>
+                        <artifactId>maven-glassfish-plugin</artifactId>
+                        <version>2.1</version>
+                        <configuration>
+                            <terse>false</terse>
+                            <echo>true</echo>
+                            <debug>true</debug>
+                            <glassfishDirectory>${glassfish.glassfishDirectory}</glassfishDirectory>
+                            <user>${glassfish.user}</user>
+                            <adminPassword>${glassfish.adminPassword}</adminPassword>
+                            <domain>
+                                <name>${glassfish.domain.name}</name>
+                                <host>${glassfish.domain.host}</host>
+                                <adminPort>${glassfish.domain.adminPort}</adminPort>
+                            </domain>
+                            <components>
+                                <component>
+                                    <name>${project.artifactId}</name>
+                                    <artifact>${project.build.directory}/${project.build.finalName}.war</artifact>
+                                </component>
+                            </components>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <version>1.6.1</version>
+                        <configuration>
+                            <container>
+                                <containerId>glassfish4x</containerId>
+                                <type>remote</type>
+                            </container>
+                            <configuration>
+                                <type>runtime</type>
+                                <properties>
+                                    <cargo.hostname>YOUR_GLASSFISH_SERVER.com</cargo.hostname>
+                                    <cargo.remote.username>admin</cargo.remote.username>
+                                    <cargo.remote.password>T0pS3cr3t</cargo.remote.password>
+                                </properties>
+                            </configuration>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.glassfish.main.deployment</groupId>
+                                <artifactId>deployment-client</artifactId>
+                                <version>${glassfish.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <!-- Java EE 7 Web Profile -->
+                <dependency>
+                    <groupId>javax</groupId>
+                    <artifactId>javaee-web-api</artifactId>
+                    <version>7.0</version>
+                    <scope>provided</scope>
+                </dependency>
+                <!-- Glassfish Embedded version -->
+                <dependency>
+                    <groupId>org.glassfish.main.extras</groupId>
+                    <artifactId>glassfish-embedded-all</artifactId>
+                    <version>${glassfish.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <!-- Packaging and compilation -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <source>${java-version}</source>
+                    <target>${java-version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <debug>true</debug>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+
+            <!-- Test and documentation -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <configuration>
+                    <aggregate>true</aggregate>
+                    <excludePackageNames>org.eclipse</excludePackageNames>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            
+            <!-- The Delombok goal provides Sources after running Lombok -->
+            <plugin>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-maven-plugin</artifactId>
+                <version>1.16.18.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>delombok</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <addOutputDirectory>false</addOutputDirectory>
+                    <sourceDirectory>src/main/java</sourceDirectory>
+                </configuration>
+            </plugin>
+
+            <!-- XXX: For Entity generation -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2</version>
+                <configuration>
+                    <mainClass>org.apache.openjpa.jdbc.meta.ReverseMappingTool</mainClass>
+                    <commandlineArgs>
+                        -directory src/main/java -accessType fields
+                        -useGenericCollections true -package org.yourproject.model
+                        -metadata none -annotations true
+                        -innerIdentityClasses false -useBuiltinIdentityClass false
+                        -primaryKeyOnJoin false
+                    </commandlineArgs>
+                    <includePluginDependencies>true</includePluginDependencies>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.validation</groupId>
+                        <artifactId>validation-api</artifactId>
+                        <version>1.0.CR3</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.openjpa</groupId>
+                        <artifactId>openjpa-all</artifactId>
+                        <version>2.0.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <!-- For Unit Testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- For En/Decoding of Strings (Base64, Hexadecimal, etc.) -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
+        </dependency>
+        <!-- For File operations -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+        
+        <!-- For Project Lombok (Getters, Setters, etc.) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- For Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.8.0-alpha2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.8.0-alpha2</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <configLocation>config/sun_checks.xml</configLocation>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>checkstyle</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <!-- The JXR Plugin generates a web-based cross-reference in target/site/xref/index.html -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.0</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>analyze-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>
