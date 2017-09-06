@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="HawPU" transaction-type="JTA">
+    <jta-data-source>jdbc/HawDataSource</jta-data-source>
+    <class>haw.common.resource.entity.Address</class>
+    <class>haw.common.resource.entity.Center</class>
+    <class>haw.common.resource.entity.Country</class>
+    <class>haw.common.resource.entity.Currency</class>
+    <class>haw.common.resource.entity.Login</class>
+    <class>haw.common.resource.entity.Moabjob</class>
+    <class>haw.common.resource.entity.Notificationsetting</class>
+    <class>haw.common.resource.entity.Parsedfile</class>
+    <class>haw.common.resource.entity.Person</class>
+    <class>haw.common.resource.entity.Project</class>
+    <class>haw.common.resource.entity.Resource</class>
+    <class>haw.common.resource.entity.Resourceaccounted</class>
+    <class>haw.common.resource.entity.Resourcetimespan</class>
+    <class>haw.common.resource.entity.Resourceuniversityshare</class>
+    <class>haw.common.resource.entity.Resourceuser</class>
+    <class>haw.common.resource.entity.Unit</class>
+    <class>haw.common.resource.entity.University</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <!--
+    <properties>
+      <property name="eclipselink.logging.level" value="FINEST"/>
+      <property name="eclipselink.logging.level.sql" value="FINEST"/>
+      <property name="eclipselink.logging.session" value="true"/>
+      <property name="eclipselink.logging.parameters" value="true"/>
+      <property name="eclipselink.logging.exceptions" value="true"/>
+      <property name="eclipselink.logging.thread" value="true"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+    -->
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
